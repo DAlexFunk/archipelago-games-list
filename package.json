@@ -1,0 +1,25 @@
+{
+  "name": "archipelago-games-list",
+  "version": "1.0.0",
+  "description": "A list of archipelago games from the spreadsheet with more details, searching, and filtering",
+  "homepage": "https://github.com/DAlexFunk/archipelago-games-list#readme",
+  "bugs": {
+    "url": "https://github.com/DAlexFunk/archipelago-games-list/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DAlexFunk/archipelago-games-list.git"
+  },
+  "license": "MIT",
+  "author": "Alex Funk",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch --env-file=.env src/server.js"
+  },
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  }
+}
