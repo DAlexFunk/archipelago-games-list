@@ -1,3 +1,4 @@
+// SHEETS SECTION
 const SHEETS_DATA_VALUES = Object.freeze({
 	NAME: 0,
 	STABILITY: 1,
@@ -26,4 +27,37 @@ async function getSheetData() {
 	return sheet_data;
 }
 
-export { SHEETS_DATA_VALUES, getSheetData };
+// STEAM SECTION
+function normalize(game) {
+	return game
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.replace(/[^a-z0-9]/g, "");
+}
+
+function areGamesSame(game1, game2) {
+	const a = normalize(game1);
+	const b = normalize(game2);
+	if (a === b) return true;
+
+	// Fuzzy searching:
+	const short = a.length < b.lenght ? a : b;
+	const long = a.length < b.lenght ? b : a;
+
+	// Don't check super short substrings
+	if (short.length < 5) return false;
+
+	return long.includes(short);
+}
+
+async function getSteamGames(steamid) {
+	const raw_steam_games = await fetch(
+		`https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_KEY}&steamid=${steamid}&format=json&include_appinfo=1&include_played_free_games=1`,
+	);
+	const raw_data = await raw_steam_games.json();
+
+	return raw_data.response.games.map((game) => normalize(game.name));
+}
+
+export { SHEETS_DATA_VALUES, getSheetData, areGamesSame, getSteamGames };

@@ -48,6 +48,16 @@
     </select>
   </div>
 
+  <div id="steam-search">
+    <form action="/" method="post">
+      <input type="text" name="steamid" id="steamid" placeholder="Enter Steam ID...">
+      <button type="submit">Search</button>
+    </form>
+    <form action="/" method="get">
+      <button type="submit">Clear Steam Games</button>
+    </form>
+  </div>
+
   <table id="games-list">
     <% games.forEach(game => { %>
     <%- include("game-item.ejs", { game, GAMES_ENUM }) %>
