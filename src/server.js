@@ -4,8 +4,9 @@ import { SHEETS_DATA_VALUES, getSheetData } from "./models.js";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.set("views", path.join(import.meta.dirname, "views"));
 app.set("view engine", "ejs");
+app.set("views", path.join(import.meta.dirname, "views"));
+app.use(express.static(path.join(import.meta.dirname, "public")));
 
 app.use("/", async (req, res) => {
 	const sheet_data = await getSheetData();

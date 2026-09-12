@@ -1,16 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Archipelago Games</title>
-	</head>
-	<body>
-		<h1>Here are the games</h1>
-        <ul>
-            <% games.forEach(game => { %>
-                <%- include("game-item.ejs", { game, GAMES_ENUM }) %>
-            <% }); %>
-        </ul>
-	</body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archipelago Games</title>
+  <link rel="stylesheet" href="/stylesheets/styles.css">
+
+  <script defer>
+    const accepted_games = <%- JSON.stringify(games) %>;
+    const GAMES_ENUM = <%- JSON.stringify(GAMES_ENUM) %>;
+  </script>
+  <script type="module" src="/js/index.js" defer></script>
+</head>
+
+<body>
+  <h1>Here are the games</h1>
+  <div id="filters">
+    <select name="stability" id="stability-select">
+      <option value="Unselected" selected>Unselected</option>
+      <option value="Stable">Stable</option>
+      <option value="Unstable">Unstable</option>
+      <option value="Broken on Main">Broken on Main</option>
+    </select>
+
+    <select name="pr-status" id="pr-status-select">
+      <option value="Unselected" selected>Unselected</option>
+      <option value="In Review">In Review</option>
+      <option value="Not PRing">Not PRing</option>
+      <option value="Merged">Merged</option>
+    </select>
+
+    <select name="rating" id="rating-select">
+      <option value="Unselected" selected>Unselected</option>
+      <option value="18">18+</option>
+      <option value="Not 18">Not 18+</option>
+    </select>
+
+    <select name="rating" id="disclosure-select">
+      <option value="Unselected" selected>Unselected</option>
+      <option value="Unknown">Unknown</option>
+      <option value="None">None</option>
+      <option value="Consulted">Consulted</option>
+      <option value="Minimal">Minimal</option>
+      <option value="Moderate">Moderate</option>
+      <option value="Extensive">Extensive</option>
+    </select>
+  </div>
+
+  <table id="games-list">
+    <% games.forEach(game => { %>
+    <%- include("game-item.ejs", { game, GAMES_ENUM }) %>
+    <% }); %>
+  </table>
+</body>
+
 </html>
