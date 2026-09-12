@@ -1,0 +1,10 @@
+<li>
+	<span><%= game.values[GAMES_ENUM.NAME].formattedValue %>,</span>
+	<span><%= game.values[GAMES_ENUM.STABILITY].formattedValue %>,</span>
+	<span><%= game.values[GAMES_ENUM.PR_STATUS].formattedValue?.replace("--", "N/A") %>,</span>
+	<span><%= game.values[GAMES_ENUM.RATING].formattedValue %>,</span>
+	<a href="<%= game.values[GAMES_ENUM.LINKS].hyperlink ?? 'x' %>"><%= game.values[GAMES_ENUM.LINKS].formattedValue %></a>
+	<a href="<%= game.values[GAMES_ENUM.SETUP].hyperlink ?? 'x' %>"><%= game.values[GAMES_ENUM.SETUP].formattedValue %></a>
+	<a href="<%= game.values[GAMES_ENUM.SUPPORT].hyperlink ?? 'x' %>"><%= game.values[GAMES_ENUM.SUPPORT].formattedValue %></a>
+	<span><%= game.values[GAMES_ENUM.DISCLOSURES].formattedValue %></span>
+</li>

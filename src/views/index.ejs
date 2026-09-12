@@ -6,6 +6,11 @@
 		<title>Archipelago Games</title>
 	</head>
 	<body>
-		<h1>Hello World</h1>
+		<h1>Here are the games</h1>
+        <ul>
+            <% games.forEach(game => { %>
+                <%- include("game-item.ejs", { game, GAMES_ENUM }) %>
+            <% }); %>
+        </ul>
 	</body>
 </html>
