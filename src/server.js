@@ -1,6 +1,6 @@
 import express from "express";
 import path from "node:path";
-import { SHEETS_DATA_VALUES, getSheetData, areGamesSame, getSteamGames } from "./models.js";
+import { DB_connect, DB_getAllGames, DB_getUserSteamGames } from "./models/db.js";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -10,14 +10,20 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", async (req, res) => {
-	let sheet_data = await getSheetData();
-	if (req.body?.steamid) {
-		const steam_games = await getSteamGames(req.body.steamid);
-		sheet_data = sheet_data.filter((game) => steam_games.some((game2) => areGamesSame(game.values[SHEETS_DATA_VALUES.NAME].formattedValue, game2)));
-	}
-	res.render("index", { games: sheet_data, GAMES_ENUM: SHEETS_DATA_VALUES });
+	let games = await (req.body?.steamid ? DB_getUserSteamGames(req.body.steamid) : DB_getAllGames());
+	res.render("index", { games });
 });
 
-app.listen(PORT, () => {
-	console.log(`Server is listening on port ${PORT}`);
-});
+(async () => {
+	try {
+		await DB_connect();
+		console.log("Successfully connected to the database");
+
+		app.listen(PORT, () => {
+			console.log(`Server is listening on port ${PORT}`);
+		});
+	} catch (err) {
+		console.log(`Failed to start the server: ${err}`);
+		process.exit(1);
+	}
+})();

@@ -9,7 +9,6 @@
 
   <script defer>
     const accepted_games = <%- JSON.stringify(games) %>;
-    const GAMES_ENUM = <%- JSON.stringify(GAMES_ENUM) %>;
   </script>
   <script type="module" src="/js/index.js" defer></script>
 </head>
@@ -59,8 +58,18 @@
   </div>
 
   <table id="games-list">
+    <tr>
+      <th>Game</th>
+      <th>Stability</th>
+      <th>PR Status</th>
+      <th>18+?</th>
+      <th>Links &amp; Downloads</th>
+      <th>Setup Guides</th>
+      <th>Support</th>
+      <th>Disclosure</th>
+    </tr>
     <% games.forEach(game => { %>
-    <%- include("game-item.ejs", { game, GAMES_ENUM }) %>
+    <%- include("game-item.ejs", { game }) %>
     <% }); %>
   </table>
 </body>

@@ -14,7 +14,7 @@ const SHEETS_DATA_VALUES = Object.freeze({
  * Gets the row data from the spreadsheet
  * @returns {Promise<Object[]>} The rows of the spreadsheet
  */
-async function getSheetData() {
+async function API_getSheetData() {
 	const SHEET_ID = "1iuzDTOAvdoNe8Ne8i461qGNucg5OuEoF-Ikqs8aUQZw";
 	const SHEET_RANGE = "'Playable Worlds'!A:H";
 	const SHEET_FIELDS = "sheets(data(rowData(values(formattedValue,hyperlink,textFormatRuns(format(link(uri)))))))";
@@ -51,7 +51,7 @@ function normalize(game) {
  * @param {string} game2 The name of the second game
  * @returns {boolean} Whether or not the names are considered the same
  */
-function areGamesSame(game1, game2) {
+function API_areGamesSame(game1, game2) {
 	const a = normalize(game1);
 	const b = normalize(game2);
 	if (a === b) return true;
@@ -71,7 +71,7 @@ function areGamesSame(game1, game2) {
  * @param {string} steamid The 17-digit steam id of the account to get the games of
  * @returns {Promise<string[]>} The names of the games that user owns
  */
-async function getSteamGames(steamid) {
+async function API_getSteamGames(steamid) {
 	const raw_steam_games = await fetch(
 		`https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_KEY}&steamid=${steamid}&format=json&include_appinfo=1&include_played_free_games=1`,
 	);
@@ -80,4 +80,4 @@ async function getSteamGames(steamid) {
 	return raw_data.response.games.map((game) => normalize(game.name));
 }
 
-export { SHEETS_DATA_VALUES, getSheetData, areGamesSame, getSteamGames };
+export { SHEETS_DATA_VALUES, API_getSheetData, API_areGamesSame, API_getSteamGames };
