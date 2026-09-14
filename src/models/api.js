@@ -80,4 +80,40 @@ async function API_getSteamGames(steamid) {
 	return raw_data.response.games.map((game) => normalize(game.name));
 }
 
-export { SHEETS_DATA_VALUES, API_getSheetData, API_areGamesSame, API_getSteamGames };
+async function API_getIgdbInfo(game_name) {
+	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+	for (let attempt = 0; attempt < 5; attempt++) {
+		let raw_data = await fetch("https://api.igdb.com/v4/games", {
+			method: "POST",
+			headers: {
+				"Client-ID": process.env.IGDB_CLIENT_ID,
+				Authorization: `Bearer ${process.env.IGDB_ACCESS_TOKEN}`,
+			},
+			body: `fields name, platforms.name, total_rating_count;search "${game_name}";`,
+		});
+
+		if (raw_data.status !== 429) {
+			const data = await raw_data.json();
+			if (data?.length === 0 && game_name.at(-1) === ")") {
+				// If we got back an empty response and the name ends with some context in parens, try again without the parens
+				game_name = game_name.replace(/\s*\(.*?\)/g, "").trim();
+				continue;
+			}
+
+			if (data?.length !== 0) {
+				// Return the game with the highest total ratings, hopefully that is our game
+				return data.reduce((max, game) => ((game.total_rating_count ?? 0) > (max.total_rating_count ?? 0) ? game : max));
+			} else {
+				return [];
+			}
+		}
+
+		const retryAfter = Number(response.headers.get("Retry-After")) || 2;
+
+		await delay(retryAfter * 1000);
+	}
+
+	throw new Error("Too many retries");
+}
+
+export { SHEETS_DATA_VALUES, API_getSheetData, API_areGamesSame, API_getSteamGames, API_getIgdbInfo };

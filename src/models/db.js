@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { SHEETS_DATA_VALUES, API_getSheetData, API_areGamesSame, API_getSteamGames } from "./api.js";
+import { SHEETS_DATA_VALUES, API_getSheetData, API_areGamesSame, API_getSteamGames, API_getIgdbInfo } from "./api.js";
 
 const client = new MongoClient(process.env.MONGO_CONNECTION);
 const archi_games = client.db("archipelago").collection("archipelago-games");
@@ -81,4 +81,46 @@ async function DB_getUserSteamGames(steamid) {
 	return games.filter((game1) => steam_games.some((game2) => API_areGamesSame(game1.name, game2)));
 }
 
-export { DB_connect, DB_fillDatabase, DB_getAllGames, DB_getUserSteamGames };
+async function rateLimitedMap(games, fn, requestsPerSecond) {
+	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+	const interval = 1000 / requestsPerSecond;
+	const results = [];
+
+	for (const game of games) {
+		const result = await fn(game);
+		results.push(result);
+		console.log(`Got info for ${game.name}`);
+		await delay(interval);
+	}
+
+	return results;
+}
+
+async function DB_getIgdbData() {
+	const db_data = await DB_getAllGames();
+
+	const operations = await rateLimitedMap(
+		db_data,
+		async (game) => {
+			const igdb_data = await API_getIgdbInfo(game.name);
+
+			return {
+				updateOne: {
+					filter: { _id: game._id },
+					update: {
+						$set: {
+							igdb_id: igdb_data.id,
+							platforms: igdb_data.platforms,
+						},
+					},
+				},
+			};
+		},
+		3,
+	);
+
+	archi_games.bulkWrite(operations);
+	console.log("Success");
+}
+
+export { DB_connect, DB_fillDatabase, DB_getAllGames, DB_getUserSteamGames, DB_getIgdbData };

@@ -10,7 +10,7 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/", async (req, res) => {
-	let games = await (req.body?.steamid ? DB_getUserSteamGames(req.body.steamid) : DB_getAllGames());
+	let games = req.body?.steamid ? await DB_getUserSteamGames(req.body.steamid) : await DB_getAllGames();
 	res.render("index", { games });
 });
 

@@ -3,6 +3,7 @@
   <td><%= game.stability ?? "" %></td>
   <td><%= game.pr_status?.replace("--", "N/A") ?? "" %></td>
   <td><%= game.rating ?? "" %></td>
+  <td><%= game.platforms?.map((platform) => platform.name).join(", ") %></td>
   <td>
     <% game.links?.forEach((link, index) => { %>
     <% if(link.uri) { %>
