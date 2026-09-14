@@ -81,6 +81,13 @@ async function DB_getUserSteamGames(steamid) {
 	return games.filter((game1) => steam_games.some((game2) => API_areGamesSame(game1.name, game2)));
 }
 
+/**
+ * Runs a function for each element in games with time control for rate limits
+ * @param {Object[]} games The list of games from the database to search from
+ * @param {Function} fn The function to run on each game
+ * @param {Number} requestsPerSecond The number of requests to send each second
+ * @returns The result of fn applied to each object in games
+ */
 async function rateLimitedMap(games, fn, requestsPerSecond) {
 	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 	const interval = 1000 / requestsPerSecond;
@@ -96,6 +103,9 @@ async function rateLimitedMap(games, fn, requestsPerSecond) {
 	return results;
 }
 
+/**
+ * Gets IGDB data (platforms, id) for every game in the database
+ */
 async function DB_getIgdbData() {
 	const db_data = await DB_getAllGames();
 

@@ -80,6 +80,11 @@ async function API_getSteamGames(steamid) {
 	return raw_data.response.games.map((game) => normalize(game.name));
 }
 
+/**
+ * Gets the IGDB data for a specific game. Gets the IGDB id and the platforms
+ * @param {String} game_name The name of the game to get the data for
+ * @returns {Promise<Object[]>} The IGDB data for each game
+ */
 async function API_getIgdbInfo(game_name) {
 	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 	for (let attempt = 0; attempt < 5; attempt++) {
