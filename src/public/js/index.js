@@ -50,7 +50,7 @@ function filterGames() {
 
 	const platform = $("#platform-select").value;
 	if (platform !== "Unselected") {
-		games = games.filter((game) => game.platforms?.includes(platform));
+		games = games.filter((game) => (platform !== "None" ? game.platforms?.includes(platform) : !game.platforms || game.platforms?.length === 0));
 	}
 
 	games.forEach((game) => {
