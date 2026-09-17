@@ -10,7 +10,7 @@ const GameItem = (game) => `
   <td>${game.stability ?? ""}</td>
   <td>${game.pr_status?.replace("--", "N/A") ?? ""}</td>
   <td>${game.rating ?? ""}</td>
-  <td>${game.platforms?.map((platform) => platform.name).join(", ")}</td>
+  <td>${game.platforms?.join(", ") ?? ""}</td>
   <td>
 	${game.links?.map((link, index) => `<a href=${link.uri ?? ""}>${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
   </td>
@@ -50,7 +50,7 @@ function filterGames() {
 
 	const platform = $("#platform-select").value;
 	if (platform !== "Unselected") {
-		games = games.filter((game) => game.platforms?.map((platform) => platform.name).includes(platform));
+		games = games.filter((game) => game.platforms?.includes(platform));
 	}
 
 	games.forEach((game) => {

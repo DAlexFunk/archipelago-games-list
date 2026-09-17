@@ -1,37 +1,3 @@
-// SHEETS SECTION
-const SHEETS_DATA_VALUES = Object.freeze({
-	NAME: 0,
-	STABILITY: 1,
-	PR_STATUS: 2,
-	RATING: 3,
-	LINKS: 4,
-	SETUP: 5,
-	SUPPORT: 6,
-	DISCLOSURES: 7,
-});
-
-/**
- * Gets the row data from the spreadsheet
- * @returns {Promise<Object[]>} The rows of the spreadsheet
- */
-async function API_getSheetData() {
-	const SHEET_ID = "1iuzDTOAvdoNe8Ne8i461qGNucg5OuEoF-Ikqs8aUQZw";
-	const SHEET_RANGE = "'Playable Worlds'!A:H";
-	const SHEET_FIELDS = "sheets(data(rowData(values(formattedValue,hyperlink,textFormatRuns(format(link(uri)))))))";
-
-	const raw_sheet_res = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}?key=${process.env.SHEETS_KEY}&ranges=${SHEET_RANGE}&fields=${SHEET_FIELDS}`);
-	const raw_data = await raw_sheet_res.json();
-
-	// Get the part we need (we do not need the first 2 rows)
-	let sheet_data = raw_data.sheets[0].data[0].rowData.slice(2);
-
-	// Filter null rows
-	sheet_data = sheet_data.filter((row) => Object.keys(row.values[0]).length !== 0);
-
-	return sheet_data;
-}
-
-// STEAM SECTION
 /**
  * Normalizes the name of a game by removing special characters, accents, and whitespace and turns it lowercase
  * @param {string} game Game name to be normalized
@@ -80,45 +46,4 @@ async function API_getSteamGames(steamid) {
 	return raw_data.response.games.map((game) => normalize(game.name));
 }
 
-/**
- * Gets the IGDB data for a specific game. Gets the IGDB id and the platforms
- * @param {String} game_name The name of the game to get the data for
- * @returns {Promise<Object[]>} The IGDB data for each game
- */
-async function API_getIgdbInfo(game_name) {
-	const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-	for (let attempt = 0; attempt < 5; attempt++) {
-		let raw_data = await fetch("https://api.igdb.com/v4/games", {
-			method: "POST",
-			headers: {
-				"Client-ID": process.env.IGDB_CLIENT_ID,
-				Authorization: `Bearer ${process.env.IGDB_ACCESS_TOKEN}`,
-			},
-			body: `fields name, platforms.name, total_rating_count;search "${game_name}";`,
-		});
-
-		if (raw_data.status !== 429) {
-			const data = await raw_data.json();
-			if (data?.length === 0 && game_name.at(-1) === ")") {
-				// If we got back an empty response and the name ends with some context in parens, try again without the parens
-				game_name = game_name.replace(/\s*\(.*?\)/g, "").trim();
-				continue;
-			}
-
-			if (data?.length !== 0) {
-				// Return the game with the highest total ratings, hopefully that is our game
-				return data.reduce((max, game) => ((game.total_rating_count ?? 0) > (max.total_rating_count ?? 0) ? game : max));
-			} else {
-				return [];
-			}
-		}
-
-		const retryAfter = Number(response.headers.get("Retry-After")) || 2;
-
-		await delay(retryAfter * 1000);
-	}
-
-	throw new Error("Too many retries");
-}
-
-export { SHEETS_DATA_VALUES, API_getSheetData, API_areGamesSame, API_getSteamGames, API_getIgdbInfo };
+export { API_areGamesSame, API_getSteamGames };
