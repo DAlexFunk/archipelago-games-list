@@ -57,5 +57,38 @@ function filterGames() {
 		$("#games-list-body").insertAdjacentHTML("beforeend", GameItem(game));
 	});
 }
-
 $("#filters").addEventListener("change", filterGames);
+
+function normalize(game) {
+	return game
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase()
+		.replace(/[^a-z0-9]/g, "");
+}
+
+function areGamesSame(game1, game2) {
+	const a = normalize(game1);
+	const b = normalize(game2);
+	if (a === b) return true;
+
+	// Fuzzy searching:
+	const short = a.length < b.length ? a : b;
+	const long = a.length < b.length ? b : a;
+
+	return long.includes(short);
+}
+
+function searchGames() {
+	$("#games-list-body").replaceChildren();
+	const query = $("#game-search-input").value;
+	console.log(`Searching: ${query}`);
+	let games = structuredClone(accepted_games);
+
+	games = games.filter((game) => areGamesSame(game.name, query));
+
+	games.forEach((game) => {
+		$("#games-list-body").insertAdjacentHTML("beforeend", GameItem(game));
+	});
+}
+$("#game-search-input").addEventListener("keyup", searchGames);
