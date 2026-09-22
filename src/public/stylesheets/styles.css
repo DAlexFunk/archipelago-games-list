@@ -1,7 +1,224 @@
-table,
-th,
-td {
-	padding: 4px;
-	border: 1px solid black;
-	border-collapse: collapse;
+:root {
+	--bg-main: #0f172a;
+	--bg-surface: #1e293b;
+	--bg-surface-alt: #334155;
+	--bg-input: #020617;
+
+	--text-main: #f8fafc;
+	--text-muted: #cbd5e1;
+
+	--accent-color: #00b4d8;
+	--accent-hover: #0077b6;
+	--accent-glow: rgba(6, 182, 212, 0.3);
+
+	--border-color: #334155;
+
+	--border-radius: 6px;
+	--transition-speed: 0.2s;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family:
+		"Inter",
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		sans-serif;
+	background-color: var(--bg-main);
+	color: var(--text-main);
+}
+
+main {
+	padding: 2rem;
+	max-width: 1600px;
+	margin: 0 auto;
+}
+
+h1 {
+	font-size: 2.5rem;
+	font-weight: 800;
+	text-align: center;
+	margin-bottom: 2rem;
+	color: var(--text-main);
+	letter-spacing: 2px;
+}
+
+#filters,
+#steam-search,
+#game-search {
+	background-color: var(--bg-surface);
+	padding: var(--spacing-md);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--border-color);
+	margin-bottom: var(--spacing-lg);
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--spacing-md);
+	align-items: center;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#steam-search form {
+	display: flex;
+	gap: var(--spacing-sm);
+	align-items: center;
+}
+
+#game-search-input {
+	flex-grow: 1;
+}
+
+input,
+select {
+	background-color: var(--bg-input);
+	color: var(--text-main);
+	border: 1px solid var(--border-color);
+	padding: 0.6rem 1rem;
+	border-radius: var(--border-radius);
+	font-size: 1rem;
+	font-family: inherit;
+	outline: none;
+	transition:
+		border-color var(--transition-speed),
+		box-shadow var(--transition-speed);
+}
+
+input:focus,
+select:focus {
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+select {
+	cursor: pointer;
+	padding-right: 2.5rem;
+}
+
+button {
+	background-color: var(--accent-color);
+	color: var(--text-main);
+	border: none;
+	padding: 0.6rem 1.2rem;
+	border-radius: var(--border-radius);
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		background-color var(--transition-speed),
+		transform var(--transition-speed);
+}
+
+button:hover {
+	background-color: var(--accent-hover);
+	transform: translateY(-1px);
+}
+
+button:active {
+	transform: translateY(1px);
+}
+
+#games-list {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	background-color: var(--bg-surface);
+	border-radius: var(--border-radius);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#games-list {
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 1);
+}
+
+#games-list thead th {
+	background-color: var(--bg-input);
+	border-bottom: 2px solid var(--accent-color);
+	position: sticky;
+	top: calc(var(--border-radius) * -1);
+	line-height: 1.6;
+}
+
+#games-list thead tr th:first-child {
+	border-top-left-radius: var(--border-radius);
+}
+
+#games-list thead tr th:last-child {
+	border-top-right-radius: var(--border-radius);
+}
+
+#games-list th {
+	text-align: left;
+	padding: 1rem;
+	color: var(--text-muted);
+	font-size: 0.875rem;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	font-weight: 600;
+}
+
+#games-list td {
+	padding: 1rem;
+	color: var(--text-main);
+}
+
+#games-list tbody tr:last-child td {
+	border-bottom: none;
+}
+
+#games-list tbody tr {
+	transition: background-color var(--transition-speed);
+}
+
+#games-list tbody tr:nth-child(even) {
+	background-color: rgba(255, 255, 255, 0.02);
+}
+
+#games-list tbody tr:hover {
+	background-color: var(--bg-surface-alt);
+}
+
+#games-list a {
+	color: var(--accent-color);
+	text-decoration: none;
+	font-weight: 500;
+	transition: color var(--transition-speed);
+}
+
+#games-list a:hover {
+	color: var(--accent-hover);
+	text-decoration: underline;
+	text-decoration-color: var(--accent-hover);
+	text-underline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+	body {
+		padding: 1rem;
+	}
+
+	#filters,
+	#steam-search {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	#steam-search form {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	select {
+		width: 100%;
+	}
 }
