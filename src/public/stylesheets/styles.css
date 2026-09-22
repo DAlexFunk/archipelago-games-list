@@ -39,6 +39,41 @@ body {
 	color: var(--text-main);
 }
 
+a {
+	color: var(--accent-color);
+	text-decoration: none;
+	font-weight: 500;
+	transition: color var(--transition-speed);
+}
+
+a:hover {
+	color: var(--accent-hover);
+	text-decoration: underline;
+	text-decoration-color: var(--accent-hover);
+	text-underline-offset: 4px;
+}
+
+header {
+	background-color: var(--bg-input);
+	padding: 2rem 4rem;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+header ul {
+	list-style-type: none;
+	display: flex;
+	gap: 2.5rem;
+}
+
+header ul li {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 main {
 	padding: 2rem;
 	max-width: 1600px;
@@ -46,12 +81,8 @@ main {
 }
 
 h1 {
-	font-size: 2.5rem;
 	font-weight: 800;
-	text-align: center;
-	margin-bottom: 2rem;
 	color: var(--text-main);
-	letter-spacing: 2px;
 }
 
 #filters,
@@ -114,6 +145,7 @@ button {
 	font-size: 1rem;
 	font-weight: 600;
 	cursor: pointer;
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 	transition:
 		background-color var(--transition-speed),
 		transform var(--transition-speed);
@@ -188,7 +220,7 @@ button:active {
 	background-color: var(--bg-surface-alt);
 }
 
-#games-list a {
+/* #games-list a {
 	color: var(--accent-color);
 	text-decoration: none;
 	font-weight: 500;
@@ -200,10 +232,10 @@ button:active {
 	text-decoration: underline;
 	text-decoration-color: var(--accent-hover);
 	text-underline-offset: 4px;
-}
+} */
 
 @media (max-width: 768px) {
-	body {
+	main {
 		padding: 1rem;
 	}
 

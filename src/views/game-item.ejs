@@ -7,7 +7,7 @@
   <td>
     <% game.links?.forEach((link, index) => { %>
     <% if(link.uri) { %>
-    <a href="<%= link.uri ?? "" %>"><%= link.text ?? "" %></a><%= index !== game.links.length - 1 ? ", " : "" %>
+    <a href="<%= link.uri ?? "" %>" target="_blank"><%= link.text ?? "" %></a><%= index !== game.links.length - 1 ? ", " : "" %>
     <% } else { %>
     <span><%=link.text ?? "" %></span>
     <% }}) %>
@@ -15,7 +15,7 @@
   <td>
     <% game.setup?.forEach((link, index) => { %>
     <% if(link.uri) { %>
-    <a href="<%= link.uri ?? "" %>"><%= link.text ?? "" %></a><%= index !== game.setup.length - 1 ? ", " : "" %>
+    <a href="<%= link.uri ?? "" %>" target="_blank"><%= link.text ?? "" %></a><%= index !== game.setup.length - 1 ? ", " : "" %>
     <% } else { %>
     <span><%=link.text ?? "" %></span>
     <% }}) %>
@@ -23,7 +23,7 @@
   <td>
     <% game.support?.forEach((link, index) => { %>
     <% if(link.uri) { %>
-    <a href="<%= link.uri ?? "" %>"><%= link.text ?? "" %></a><%= index !== game.support.length - 1 ? ", " : "" %>
+    <a href="<%= link.uri ?? "" %>" target="_blank"><%= link.text ?? "" %></a><%= index !== game.support.length - 1 ? ", " : "" %>
     <% } else { %>
     <span><%= link.text ?? "" %></span>
     <% }}) %>

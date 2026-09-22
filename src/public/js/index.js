@@ -12,13 +12,13 @@ const GameItem = (game) => `
   <td>${game.rating ?? ""}</td>
   <td>${game.platforms?.join(", ") ?? ""}</td>
   <td>
-	${game.links?.map((link, index) => `<a href=${link.uri ?? ""}>${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
+	${game.links?.map((link, index) => `<a href=${link.uri ?? ""} target="_blank">${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
   </td>
   <td>
-	${game.setup?.map((link, index) => `<a href=${link.uri ?? ""}>${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
+	${game.setup?.map((link, index) => `<a href=${link.uri ?? ""} target="_blank">${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
   </td>
   <td>
-	${game.support?.map((link, index) => `<a href=${link.uri ?? ""}>${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
+	${game.support?.map((link, index) => `<a href=${link.uri ?? ""} target="_blank">${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
   </td>
   <td>${game.disclosure ?? ""}</td>
 </tr>
