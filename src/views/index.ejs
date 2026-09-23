@@ -23,87 +23,90 @@
   </header>
   <main>
     <div id="filters">
-      <select name="stability" id="stability-select">
-        <option value="Unselected" selected>Unselected</option>
-        <option value="Stable">Stable</option>
-        <option value="Unstable">Unstable</option>
-        <option value="Broken on Main">Broken on Main</option>
-      </select>
-
-      <select name="pr-status" id="pr-status-select">
-        <option value="Unselected" selected>Unselected</option>
-        <option value="In Review">In Review</option>
-        <option value="Not PRing">Not PRing</option>
-        <option value="Merged">Merged</option>
-      </select>
-
-      <select name="rating" id="rating-select">
-        <option value="Unselected" selected>Unselected</option>
-        <option value="18">18+</option>
-        <option value="Not 18">Not 18+</option>
-      </select>
-
-      <select name="disclosure" id="disclosure-select">
-        <option value="Unselected" selected>Unselected</option>
-        <option value="Unknown">Unknown</option>
-        <option value="None">None</option>
-        <option value="Consulted">Consulted</option>
-        <option value="Minimal">Minimal</option>
-        <option value="Moderate">Moderate</option>
-        <option value="Extensive">Extensive</option>
-      </select>
-
-      <select name="platform" id="platform-select">
-        <option value="Unselected" selected>Unselected</option>
-        <option value="PC (Microsoft Windows)" class="console">Windows</option>
-        <option value="Mac" class="console">Mac</option>
-        <option value="Linux" class="console">Linux</option>
-        <option value="Web browser" class="console">Web</option>
-        <option value="Super Famicom" class="console">Famicom</option>
-        <option value="Nintendo Entertainment System" class="console">NES</option>
-        <option value="Super Nintendo Entertainment System" class="console">SNES</option>
-        <option value="Nintendo 64" class="console">N64</option>
-        <option value="Nintendo GameCube" class="console">GameCube</option>
-        <option value="Wii" class="console">Wii</option>
-        <option value="Wii U" class="console">Wii U</option>
-        <option value="Nintendo Switch" class="console">Switch</option>
-        <option value="Game Boy" class="console">GB</option>
-        <option value="Game Boy Color" class="console">GBC</option>
-        <option value="Game Boy Advance" class="console">GBA</option>
-        <option value="Nintendo DS" class="console">DS</option>
-        <option value="Nintendo DSi" class="console">DSi</option>
-        <option value="Nintendo 3DS" class="console">3DS</option>
-        <option value="Xbox" class="console">Xbox</option>
-        <option value="Xbox 360" class="console">Xbox 360</option>
-        <option value="Xbox One" class="console">Xbox One</option>
-        <option value="Xbox Series X|S" class="console">Xbox Series S|X</option>
-        <option value="PlayStation" class="console">PS</option>
-        <option value="PlayStation 2" class="console">PS2</option>
-        <option value="PlayStation 3" class="console">PS3</option>
-        <option value="PlayStation 4" class="console">PS4</option>
-        <option value="PlayStation 5" class="console">PS5</option>
-        <option value="PlayStation Portable" class="console">PSP</option>
-        <option value="PlayStation Vita" class="console">PS Vita</option>
-        <option value="Sega Master System/Mark III" class="console">Sega Master System</option>
-        <option value="Sega Mega Drive/Genesis" class="console">Sega Mega Drive/Genesis</option>
-        <option value="Sega Saturn" class="console">Sega Saturn</option>
-        <option value="Dreamcast" class="console">Dreamcast</option>
-        <option value="None" class="console">No Platform Data</option>
-      </select>
-    </div>
-
-    <div id="steam-search">
-      <form action="/" method="post">
-        <input type="text" name="steamid" id="steamid-input" placeholder="Enter Steam ID...">
-        <button type="submit">Search</button>
-      </form>
-      <form action="/" method="get">
-        <button type="submit">Clear Steam Games</button>
-      </form>
+      <h2>Filters</h2>
+      <div id="selects">
+        <select name="stability" id="stability-select">
+          <option value="Unselected" selected>Stability</option>
+          <option value="Stable">Stable</option>
+          <option value="Unstable">Unstable</option>
+          <option value="Broken on Main">Broken on Main</option>
+        </select>
+        <select name="pr-status" id="pr-status-select">
+          <option value="Unselected" selected>PR Status</option>
+          <option value="In Review">In Review</option>
+          <option value="Not PRing">Not PRing</option>
+          <option value="Merged">Merged</option>
+        </select>
+        <select name="rating" id="rating-select">
+          <option value="Unselected" selected>Rating</option>
+          <option value="18">18+</option>
+          <option value="Not 18">Not 18+</option>
+        </select>
+        <select name="disclosure" id="disclosure-select">
+          <option value="Unselected" selected>Disclosure</option>
+          <option value="Unknown">Unknown</option>
+          <option value="None">None</option>
+          <option value="Consulted">Consulted</option>
+          <option value="Minimal">Minimal</option>
+          <option value="Moderate">Moderate</option>
+          <option value="Extensive">Extensive</option>
+        </select>
+        <select name="platform" id="platform-select">
+          <option value="Unselected" selected>Platform</option>
+          <option value="PC (Microsoft Windows)" class="console">Windows</option>
+          <option value="Mac" class="console">Mac</option>
+          <option value="Linux" class="console">Linux</option>
+          <option value="Web browser" class="console">Web</option>
+          <option value="Super Famicom" class="console">Famicom</option>
+          <option value="Nintendo Entertainment System" class="console">NES</option>
+          <option value="Super Nintendo Entertainment System" class="console">SNES</option>
+          <option value="Nintendo 64" class="console">N64</option>
+          <option value="Nintendo GameCube" class="console">GameCube</option>
+          <option value="Wii" class="console">Wii</option>
+          <option value="Wii U" class="console">Wii U</option>
+          <option value="Nintendo Switch" class="console">Switch</option>
+          <option value="Game Boy" class="console">GB</option>
+          <option value="Game Boy Color" class="console">GBC</option>
+          <option value="Game Boy Advance" class="console">GBA</option>
+          <option value="Nintendo DS" class="console">DS</option>
+          <option value="Nintendo DSi" class="console">DSi</option>
+          <option value="Nintendo 3DS" class="console">3DS</option>
+          <option value="Xbox" class="console">Xbox</option>
+          <option value="Xbox 360" class="console">Xbox 360</option>
+          <option value="Xbox One" class="console">Xbox One</option>
+          <option value="Xbox Series X|S" class="console">Xbox Series S|X</option>
+          <option value="PlayStation" class="console">PS</option>
+          <option value="PlayStation 2" class="console">PS2</option>
+          <option value="PlayStation 3" class="console">PS3</option>
+          <option value="PlayStation 4" class="console">PS4</option>
+          <option value="PlayStation 5" class="console">PS5</option>
+          <option value="PlayStation Portable" class="console">PSP</option>
+          <option value="PlayStation Vita" class="console">PS Vita</option>
+          <option value="Sega Master System/Mark III" class="console">Sega Master System</option>
+          <option value="Sega Mega Drive/Genesis" class="console">Sega Mega Drive/Genesis</option>
+          <option value="Sega Saturn" class="console">Sega Saturn</option>
+          <option value="Dreamcast" class="console">Dreamcast</option>
+          <option value="None" class="console">No Platform Data</option>
+        </select>
+      </div>
     </div>
 
     <div id="game-search">
+      <h2>Search</h2>
       <input type="text" name="game-search" id="game-search-input" placeholder="Search...">
+    </div>
+
+    <div id="steam-search">
+      <h2>Steam ID Filter</h2>
+      <div id="steam-inputs">
+        <form action="/" method="post" id="steamid-input">
+          <input type="text" name="steamid" id="steamid-input" placeholder="Enter Steam ID...">
+          <button type="submit">Search</button>
+        </form>
+        <form action="/" method="get" id="steamid-clear">
+          <button type="submit">Clear Steam Games</button>
+        </form>
+      </div>
     </div>
 
     <table id="games-list">
