@@ -158,9 +158,12 @@ h1 {
 	background-color: var(--bg-main);
 	color: var(--text-main);
 	border-radius: var(--border-radius);
-	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-lg);
+}
+
+#steam-modal[open] {
+	display: flex;
 }
 
 #steam-modal::backdrop {
