@@ -97,7 +97,15 @@
     </div>
 
     <div id="steam-search">
-      <h2>Steam ID Filter</h2>
+      <div id="steam-title">
+        <h2>Steam ID Filter</h2>
+        <span id="steam-information" tabindex="0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="information-icon">
+            <title>Steam Guide</title>
+            <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
+          </svg>
+        </span>
+      </div>
       <div id="steam-inputs">
         <form action="/" method="post" id="steamid-input">
           <input type="text" name="steamid" id="steamid-input" placeholder="Enter Steam ID...">
@@ -130,6 +138,29 @@
       </tbody>
     </table>
   </main>
+  <dialog id="steam-modal">
+    <button id="steamid-close"> <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg></button>
+    <div>
+      <h2>What is this?</h2>
+      <p>This allows you to enter your Steam ID and filter the list of games based on the games in your library</p>
+      <p class="note">
+        NOTE: Games shown may not be completly accurate since the games in the sheet do not have the exact Steam names.<br>
+        Games with similar names cause false positives. It'll be mostly correct.
+      </p>
+    </div>
+    <div>
+      <h2>How do I Get my Steam ID?</h2>
+      <ol id="steamid-steps">
+        <li>1. Open Steam</li>
+        <li>2. Click your profile in the top right &rarr; account details</li>
+        <li>3. Look for Steam ID under your username</li>
+      </ol>
+      <img src="/assets/steamid-showcase.png" alt="demo of getting Steam ID" id="steamid-guide">
+    </div>
+  </dialog>
 </body>
 
 </html>

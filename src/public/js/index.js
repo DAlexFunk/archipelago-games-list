@@ -82,7 +82,6 @@ function areGamesSame(game1, game2) {
 function searchGames() {
 	$("#games-list-body").replaceChildren();
 	const query = $("#game-search-input").value;
-	console.log(`Searching: ${query}`);
 	let games = structuredClone(accepted_games);
 
 	games = games.filter((game) => areGamesSame(game.name, query));
@@ -92,3 +91,6 @@ function searchGames() {
 	});
 }
 $("#game-search-input").addEventListener("keyup", searchGames);
+
+$("#steam-information").addEventListener("click", () => $("#steam-modal").showModal());
+$("#steamid-close").addEventListener("click", () => $("#steam-modal").close());

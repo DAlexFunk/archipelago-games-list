@@ -43,7 +43,11 @@ a {
 	color: var(--accent-color);
 	text-decoration: none;
 	font-weight: 500;
-	transition: color var(--transition-speed);
+	border-radius: var(--border-radius);
+	transition:
+		color var(--transition-speed),
+		border-color var(--transition-speed),
+		box-shadow var(--transition-speed);
 }
 
 a:hover {
@@ -51,6 +55,20 @@ a:hover {
 	text-decoration: underline;
 	text-decoration-color: var(--accent-hover);
 	text-underline-offset: 4px;
+}
+
+button:focus,
+input:focus,
+select:focus,
+a:focus {
+	outline: none;
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+ul,
+ol {
+	list-style-type: none;
 }
 
 header {
@@ -63,7 +81,6 @@ header {
 }
 
 header ul {
-	list-style-type: none;
 	display: flex;
 	gap: 2.5rem;
 }
@@ -111,6 +128,81 @@ h1 {
 	flex: 1;
 }
 
+#steam-title {
+	display: flex;
+	gap: 0.3rem;
+}
+
+#steam-information {
+	min-width: 16px;
+	display: flex;
+	align-items: center;
+}
+
+#information-icon {
+	fill: var(--text-main);
+	border-radius: var(--border-radius);
+	transition: filter var(--transition-speed);
+}
+
+#information-icon:hover {
+	cursor: pointer;
+	filter: brightness(0.75);
+}
+
+#steam-modal {
+	margin: auto;
+	padding: 2rem;
+	border: 2px solid var(--border-color);
+	max-width: 75%;
+	background-color: var(--bg-main);
+	color: var(--text-main);
+	border-radius: var(--border-radius);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-lg);
+}
+
+#steam-modal::backdrop {
+	background: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(1px);
+}
+
+#steam-modal:focus {
+	outline: none;
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+p.note {
+	border: 2px solid var(--accent-hover);
+	border-radius: var(--border-radius);
+	background-color: var(--accent-color);
+	color: var(--bg-main);
+	font-weight: 750;
+	text-align: center;
+	padding: 0.5rem;
+	margin: 1rem 0;
+}
+
+#steam-modal img {
+	max-width: 100%;
+	margin-top: 1rem;
+}
+
+#steam-modal button {
+	padding: 0;
+	width: 1.5rem;
+	aspect-ratio: 1 / 1;
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	border-radius: var(--border-radius);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
 #steam-inputs {
 	width: 100%;
 	display: flex;
@@ -148,12 +240,6 @@ select {
 	transition:
 		border-color var(--transition-speed),
 		box-shadow var(--transition-speed);
-}
-
-input:focus,
-select:focus {
-	border-color: var(--accent-color);
-	box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 select {
@@ -271,5 +357,12 @@ button:active {
 
 	select {
 		width: 100%;
+	}
+
+	#steam-modal {
+		padding: 1rem;
+		max-width: auto;
+		margin: 5vw;
+		width: min(90vw, 500px);
 	}
 }
