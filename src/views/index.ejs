@@ -116,7 +116,7 @@
         </form>
       </div>
     </div>
-
+    <% if (games !== null) { %>
     <table id="games-list">
       <thead>
         <tr>
@@ -137,6 +137,11 @@
         <% }); %>
       </tbody>
     </table>
+    <% } else { %>
+    <script>
+      alert("Error: could not get games")
+    </script>
+    <% } %>
   </main>
   <dialog id="steam-modal">
     <button id="steamid-close"> <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">

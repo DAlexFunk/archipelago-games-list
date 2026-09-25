@@ -14,7 +14,13 @@ app.use("/api", (req, res) => {
 });
 
 app.use("/", async (req, res) => {
-	let games = req.body?.steamid ? await DB_getUserSteamGames(req.body.steamid) : await DB_getAllGames();
+	let games = null;
+	try {
+		games = req.body?.steamid ? await DB_getUserSteamGames(req.body.steamid) : await DB_getAllGames();
+	} catch (error) {
+		console.error(`Failed to retrive games: ${error.message}`);
+	}
+
 	res.render("index", { games });
 });
 

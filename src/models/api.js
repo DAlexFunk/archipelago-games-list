@@ -40,10 +40,18 @@ function API_areGamesSame(game1, game2) {
 async function API_getSteamGames(steamid) {
 	const raw_steam_games = await fetch(
 		`https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_KEY}&steamid=${steamid}&format=json&include_appinfo=1&include_played_free_games=1`,
+		{ signal: AbortSignal.timeout(5000) },
 	);
-	const raw_data = await raw_steam_games.json();
 
-	return raw_data.response.games.map((game) => normalize(game.name));
+	const contentType = raw_steam_games.headers.get("content-type");
+	if (!raw_steam_games.ok || !contentType || !contentType.includes("application/json")) {
+		throw new Error(`Failed to get steam data with HTTP ${raw_steam_games.status}`);
+	}
+
+	const raw_data = await raw_steam_games.json();
+	const games = raw_data?.response?.games ?? [];
+
+	return games.map((game) => normalize(game.name)) ?? [];
 }
 
 export { API_areGamesSame, API_getSteamGames };
