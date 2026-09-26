@@ -29,4 +29,10 @@
     <% }}) %>
   </td>
   <td><%= game.disclosure ?? "" %></td>
+  <td>
+    <span><%= game.comments?.text ?? "" %><%= game.comments?.urls?.length > 0 ? ": " : "" %></span>
+    <% game.comments?.urls?.forEach((link, index) => { %>
+    <a href="<%= link %>" target="_blank">Link <%= index + 1 %></a><%= index !== game.comments.urls.length - 1 ? ", " : "" %>
+    <% }) %>
+  </td>
 </tr>

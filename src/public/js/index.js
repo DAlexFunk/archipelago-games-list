@@ -21,6 +21,10 @@ const GameItem = (game) => `
 	${game.support?.map((link, index) => `<a href=${link.uri ?? ""} target="_blank">${link.text ?? ""}</a>${index !== game.links.length - 1 ? ", " : ""}`).join("") ?? ""}
   </td>
   <td>${game.disclosure ?? ""}</td>
+  <td>
+	<span>${game.comments?.text ?? ""}${game.comments?.urls?.length > 0 ? ": " : ""}</span>
+	${game.comments?.urls?.map((link, index) => `<a href="${link}" target="_blank">Link ${index + 1}</a>${index !== game.comments.urls.length - 1 ? ", " : ""}`).join("") ?? ""}
+  </td>
 </tr>
 `;
 

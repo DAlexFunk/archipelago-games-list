@@ -33,6 +33,7 @@ app.timer("refresh-games-list", {
 						links: game.links,
 						setup: game.setup,
 						support: game.support,
+						comments: game.comments,
 					},
 				},
 				upsert: true,
@@ -68,7 +69,7 @@ app.timer("refresh-games-list", {
 								update: {
 									$set: {
 										igdb_id: igdb_data.id,
-										platforms: igdb_data.platforms?.map(platform => platform.name) ?? [],
+										platforms: igdb_data.platforms?.map((platform) => platform.name) ?? [],
 										last_igdb_refresh: new Date(),
 									},
 								},
@@ -142,7 +143,7 @@ app.timer("refresh-platforms", {
 							filter: { _id: game._id },
 							update: {
 								$set: {
-									platforms: igdb_data.platforms?.map(platform => platform.name) ?? [],
+									platforms: igdb_data.platforms?.map((platform) => platform.name) ?? [],
 									last_igdb_refresh: new Date(),
 								},
 							},
