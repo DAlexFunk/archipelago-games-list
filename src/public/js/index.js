@@ -3,6 +3,7 @@ Globals:
 accepted_games - from the backend. list of all games. used to filter the list
 */
 let $ = (selector) => document.querySelector(selector);
+let $all = (selector) => document.querySelectorAll(selector);
 
 const GameItem = (game) => `
 <tr>
@@ -98,3 +99,10 @@ $("#game-search-input").addEventListener("keyup", searchGames);
 
 $("#steam-information").addEventListener("click", () => $("#steam-modal").showModal());
 $("#steamid-close").addEventListener("click", () => $("#steam-modal").close());
+
+$all(".close-previous-steamid").forEach((btn) => {
+	btn.addEventListener("click", (evt) => {
+		btn.nextElementSibling.disabled = true;
+		$("#steamid-input").requestSubmit();
+	});
+});

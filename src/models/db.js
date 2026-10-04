@@ -39,13 +39,17 @@ async function DB_getAllGames() {
 }
 
 /**
- * Gets all of the given user's steam games in the database
- * @param {String} steamid The steamid to get the games for
+ * Gets all of the given users' steam games in the database
+ * @param {String[]} steamids The steamids to get the games for
  * @returns {Promise<Object[]>} The steam games for the given steamid
  */
-async function DB_getUserSteamGames(steamid) {
+async function DB_getUserSteamGames(steamids) {
+	if (!Array.isArray(steamids)) throw new Error("DB_getUserSteamGames needs an array of steamdids");
+	if (steamids.length <= 0) return [];
+
 	const games = await DB_getAllGames();
-	const steam_games = await API_getSteamGames(steamid);
+	// Gets all the steam games from the given steamids and finds the union of all the games
+	const steam_games = [...new Set((await Promise.all(steamids.map(API_getSteamGames))).flat())];
 	return games.filter((game1) => steam_games.some((game2) => API_areGamesSame(game1.name, game2)));
 }
 

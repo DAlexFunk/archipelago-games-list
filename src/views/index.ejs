@@ -109,8 +109,26 @@
       </div>
       <div id="steam-inputs">
         <form action="/" method="post" id="steamid-input">
-          <input type="text" name="steamid" id="steamid-input" placeholder="Enter Steam ID...">
-          <button type="submit">Search</button>
+          <div id="steamid-input-wrapper">
+            <input type="text" name="steamids[]" id="steamid-input" placeholder="Enter Steam ID...">
+            <button type="submit">Search</button>
+          </div>
+          <% if (Array.isArray(steaminfo) && steaminfo.length > 0) { %>
+          <div id="steamids">
+            <% steaminfo.forEach(info => { %>
+            <fieldset class="previous-steamid">
+              <button class="close-previous-steamid" type="button">
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+              <input type="text" name="steamids[]" value="<%= info.steamid %>" hidden>
+              <p><%= info.name %></p>
+            </fieldset>
+            <% }) %>
+          </div>
+          <% } %>
         </form>
         <form action="/" method="get" id="steamid-clear">
           <button type="submit">Clear Steam Games</button>
@@ -146,10 +164,12 @@
     <% } %>
   </main>
   <dialog id="steam-modal">
-    <button id="steamid-close"> <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <button id="steamid-close">
+      <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg></button>
+      </svg>
+    </button>
     <div>
       <h2>What is this?</h2>
       <p>This allows you to enter your Steam ID and filter the list of games based on the games in your library</p>
