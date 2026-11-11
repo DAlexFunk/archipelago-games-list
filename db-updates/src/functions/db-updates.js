@@ -21,6 +21,22 @@ app.timer("refresh-games-list", {
 			return;
 		}
 
+		// Remove any games not in games list
+		const allowed_games = games.map((game) => game.name);
+		if (allowed_games.length !== 0) {
+			try {
+				const result = await archi_games.deleteMany({
+					name: { $nin: allowed_games },
+				});
+				context.log(`Removed ${result.deletedCount} games`);
+			} catch (error) {
+				context.error(`Failed to delete games: ${error}`);
+			}
+		} else {
+			context.log(`Allowed_games was of length 0. Skipping game deletion`);
+		}
+
+		// Add new games and update field data
 		const operations = games?.map((game) => ({
 			updateOne: {
 				filter: { name: game.name },
@@ -89,7 +105,7 @@ app.timer("refresh-games-list", {
 				await archi_games.bulkWrite(operations);
 				context.log(`Updated ${operations.length} entries with IGDB data`);
 			} catch (error) {
-				context.log(`Failed to update IGDB data: ${error}`);
+				context.error(`Failed to update IGDB data: ${error}`);
 			}
 		}
 	},
